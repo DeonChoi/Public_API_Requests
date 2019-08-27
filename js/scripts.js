@@ -1,5 +1,5 @@
 //requests data from random user api
-fetch('https://randomuser.me/api/?results=12')
+fetch('https://randomuser.me/api/?nat=au,us,dk,fr,gb&results=12')
     .then(response => response.json())
     .then(data => generateUsers(data.results))
     .catch(err => console.log('Fetch Error :-S', err));
@@ -86,7 +86,7 @@ function generateUsers(allUsers) {
                             <p class="modal-text cap">${clickedUser.location.city}, ${clickedUser.location.state}</p>
                             <hr>
                             <p class="modal-text">${clickedUser.cell}</p>
-                            <p class="modal-text" id="modal-location">${clickedUser.location.street}, ${clickedUser.location.city.charAt(0).toUpperCase() + clickedUser.location.city.slice(1)}, ${clickedUser.location.state.charAt(0).toUpperCase() + clickedUser.location.state.slice(1)} ${clickedUser.location.postcode}</p>
+                            <p class="modal-text" id="modal-location">${clickedUser.location.street}, ${clickedUser.location.city}, ${clickedUser.location.state} ${clickedUser.location.postcode}</p>
                             <p class="modal-text">Birthday: ${clickedUserDOB}</p>
                         </div>
                         <div class="modal-btn-container">
@@ -96,7 +96,9 @@ function generateUsers(allUsers) {
                     </div>
                 </div>
             `;
+
                 $('body').append(clickedUserWindow);
+                $('.modal-text').css('text-transform', 'capitalize');
                 $('#modal-next').on('click', function() {
                     resetNextUser();
                 });
@@ -107,7 +109,7 @@ function generateUsers(allUsers) {
 
             appendModalWindow(clickedUser);
             closeModalWindow();
-            //$('.modal-location').css('text-transform', 'capitalize');
+
 
             //next user is initalized by increasing index of current user by 1
             //previous user is initialized by decreasing index of current user by 1
@@ -190,6 +192,29 @@ function generateUsers(allUsers) {
             }
 
         })
+
+    }
+
+    addSearchBar();
+    //adds functional search bar/button
+    function addSearchBar() {
+        const newSearchBar = `
+            <form action="#" method="get">
+                <input type="search" id="search-input" class="search-input" placeholder="Search...">
+                <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+            </form>
+        `;
+        $('.search-container').append(newSearchBar);
+        //console.log(typeof(allUsers[0].name.first + ' ' + allUsers[0].name.last))
+        $('#search-submit').on('click', function() {
+            for (let i = 0; i < $('.card').length; i += 1) {
+                if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
+                    $('.card')[i].style.display = '';
+                } else {
+                    $('.card')[i].style.display = 'none';
+                }
+            }
+        });
 
     }
 
