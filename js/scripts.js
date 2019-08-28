@@ -1,3 +1,6 @@
+//changes background color of the body
+$('body').css('background-color', '#a2b1e0');
+
 //requests data from random user api
 fetch('https://randomuser.me/api/?nat=au,us,dk,fr,gb&results=12&lego')
     .then(response => response.json())
@@ -143,10 +146,10 @@ function generateUsers(allUsers) {
             //         $('.modal-container').remove();
             //         indexOfClickedUser = -1;
             //         appendModalWindow(nextUser);
+            //         closeModalWindow();
             //         clickedUser = nextUser;
             //         nextUser = allUsers[0];
             //         prevUser = allUsers[indexOfClickedUser - 1];
-            //         closeModalWindow();
             //     }
             // }
 
@@ -164,10 +167,10 @@ function generateUsers(allUsers) {
             //         $('.modal-container').remove();
             //         indexOfClickedUser = 12;
             //         appendModalWindow(prevUser);
+            //         closeModalWindow();
             //         clickedUser = prevUser;
             //         nextUser = allUsers[1];
             //         prevUser = allUsers[11];
-            //         closeModalWindow();
             //     }
             // }
             function resetPrevUser() {
@@ -205,17 +208,17 @@ function generateUsers(allUsers) {
             </form>
         `;
         $('.search-container').append(newSearchBar);
-        //console.log(typeof(allUsers[0].name.first + ' ' + allUsers[0].name.last))
-        $('#search-submit').on('click', function(event) {
-            event.preventDefault();
-            for (let i = 0; i < $('.card').length; i += 1) {
-                if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
-                    $('.card')[i].style.display = '';
-                } else {
-                    $('.card')[i].style.display = 'none';
-                }
-            }
-        });
+
+        // $('#search-submit').on('click', function(event) {
+        //     event.preventDefault();
+        //     for (let i = 0; i < $('.card').length; i += 1) {
+        //         if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
+        //             $('.card')[i].style.display = '';
+        //         } else {
+        //             $('.card')[i].style.display = 'none';
+        //         }
+        //     }
+        // });
 
         //dynamic search listener. automatically provides search results after every keypress
         $('#search-input').on('keyup', function() {
