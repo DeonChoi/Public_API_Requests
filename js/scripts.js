@@ -117,21 +117,8 @@ function generateUsers(allUsers) {
             let prevUser = allUsers[indexOfClickedUser - 1];
 
             //sets next user to current user
-            // function resetNextUser() {
-            //     if (indexOfClickedUser <= 10) {
-            //         $('.modal-container').remove();
-            //         appendModalWindow(nextUser);
-            //         indexOfClickedUser += 1;
-            //         clickedUser = nextUser;
-            //         nextUser = allUsers[indexOfClickedUser + 1];
-            //         prevUser = allUsers[indexOfClickedUser - 1];
-            //         closeModalWindow();
-            //     } else {
-            //         alert("You have reached the end of the directory");
-            //     }
-            // }
             function resetNextUser() {
-                if (indexOfClickedUser < 10) {
+                if (indexOfClickedUser <= 10) {
                     $('.modal-container').remove();
                     appendModalWindow(nextUser);
                     indexOfClickedUser += 1;
@@ -139,39 +126,33 @@ function generateUsers(allUsers) {
                     nextUser = allUsers[indexOfClickedUser + 1];
                     prevUser = allUsers[indexOfClickedUser - 1];
                     closeModalWindow();
-                } else if (indexOfClickedUser = 11) {
-                    $('.modal-container').remove();
-                    indexOfClickedUser = -1;
-                    appendModalWindow(nextUser);
-                    clickedUser = nextUser;
-                    nextUser = allUsers[0];
-                    prevUser = allUsers[indexOfClickedUser - 1];
-                    closeModalWindow();
+                } else {
+                    alert("You have reached the end of the directory");
                 }
             }
+            // function resetNextUser() {
+            //     if (indexOfClickedUser < 10) {
+            //         $('.modal-container').remove();
+            //         appendModalWindow(nextUser);
+            //         indexOfClickedUser += 1;
+            //         clickedUser = nextUser;
+            //         nextUser = allUsers[indexOfClickedUser + 1];
+            //         prevUser = allUsers[indexOfClickedUser - 1];
+            //         closeModalWindow();
+            //     } else if (indexOfClickedUser = 11) {
+            //         $('.modal-container').remove();
+            //         indexOfClickedUser = -1;
+            //         appendModalWindow(nextUser);
+            //         clickedUser = nextUser;
+            //         nextUser = allUsers[0];
+            //         prevUser = allUsers[indexOfClickedUser - 1];
+            //         closeModalWindow();
+            //     }
+            // }
 
             //sets previous user to current user
-            function resetPrevUser() {
-                if (indexOfClickedUser > 1) {
-                    $('.modal-container').remove();
-                    appendModalWindow(prevUser);
-                    indexOfClickedUser -= 1;
-                    clickedUser = prevUser;
-                    nextUser = allUsers[indexOfClickedUser + 1];
-                    prevUser = allUsers[indexOfClickedUser - 1];
-                    closeModalWindow();
-                } else if (indexOfClickedUser = 1) {
-                    $('.modal-container').remove();
-                    indexOfClickedUser = 12;
-                    appendModalWindow(prevUser);
-                    clickedUser = prevUser;
-                    nextUser = allUsers[1];
-                    prevUser = allUsers[11];
-                    closeModalWindow();
-                }
-            }
             // function resetPrevUser() {
-            //     if (indexOfClickedUser >= 1) {
+            //     if (indexOfClickedUser > 1) {
             //         $('.modal-container').remove();
             //         appendModalWindow(prevUser);
             //         indexOfClickedUser -= 1;
@@ -179,10 +160,29 @@ function generateUsers(allUsers) {
             //         nextUser = allUsers[indexOfClickedUser + 1];
             //         prevUser = allUsers[indexOfClickedUser - 1];
             //         closeModalWindow();
-            //     } else {
-            //         alert("You have reached the beginning of the directory");
+            //     } else if (indexOfClickedUser = 1) {
+            //         $('.modal-container').remove();
+            //         indexOfClickedUser = 12;
+            //         appendModalWindow(prevUser);
+            //         clickedUser = prevUser;
+            //         nextUser = allUsers[1];
+            //         prevUser = allUsers[11];
+            //         closeModalWindow();
             //     }
             // }
+            function resetPrevUser() {
+                if (indexOfClickedUser >= 1) {
+                    $('.modal-container').remove();
+                    appendModalWindow(prevUser);
+                    indexOfClickedUser -= 1;
+                    clickedUser = prevUser;
+                    nextUser = allUsers[indexOfClickedUser + 1];
+                    prevUser = allUsers[indexOfClickedUser - 1];
+                    closeModalWindow();
+                } else {
+                    alert("You have reached the beginning of the directory");
+                }
+            }
 
             //click event handler inside a function, used to close modal window when you click the 'X' button
             function closeModalWindow() {
@@ -211,6 +211,19 @@ function generateUsers(allUsers) {
             for (let i = 0; i < $('.card').length; i += 1) {
                 if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
                     $('.card')[i].style.display = '';
+                } else {
+                    $('.card')[i].style.display = 'none';
+                }
+            }
+        });
+
+        //dynamic search listener. automatically provides search results after every keypress
+        $('#search-input').on('keyup', function() {
+            const searchList = [];
+            for (let i = 0; i < $('.card').length; i += 1) {
+                if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
+                    $('.card')[i].style.display = '';
+                    searchList.push($('.card')[i]);
                 } else {
                     $('.card')[i].style.display = 'none';
                 }
