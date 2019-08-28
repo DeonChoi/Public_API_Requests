@@ -207,8 +207,8 @@ function generateUsers(allUsers) {
         $('.search-container').append(newSearchBar);
         //console.log(typeof(allUsers[0].name.first + ' ' + allUsers[0].name.last))
         $('#search-submit').on('click', function(event) {
+            event.preventDefault();
             for (let i = 0; i < $('.card').length; i += 1) {
-                event.preventDefault();
                 if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
                     $('.card')[i].style.display = '';
                 } else {
