@@ -1,5 +1,5 @@
 //requests data from random user api
-fetch('https://randomuser.me/api/?nat=au,us,dk,fr,gb&results=12')
+fetch('https://randomuser.me/api/?nat=au,us,dk,fr,gb&results=12&lego')
     .then(response => response.json())
     .then(data => generateUsers(data.results))
     .catch(err => console.log('Fetch Error :-S', err));
@@ -206,8 +206,9 @@ function generateUsers(allUsers) {
         `;
         $('.search-container').append(newSearchBar);
         //console.log(typeof(allUsers[0].name.first + ' ' + allUsers[0].name.last))
-        $('#search-submit').on('click', function() {
+        $('#search-submit').on('click', function(event) {
             for (let i = 0; i < $('.card').length; i += 1) {
+                event.preventDefault();
                 if (($('.card')[i].children[1].children[0].innerHTML).includes($('#search-input').val().toLowerCase())) {
                     $('.card')[i].style.display = '';
                 } else {
